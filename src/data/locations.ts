@@ -1,0 +1,56 @@
+import type { Location } from '../types';
+
+export const locations: Location[] = [
+  {
+    id: 'koramangala',
+    slug: 'koramangala',
+    name: 'Koramangala',
+    address: '1st Floor, 42, 1st Main Rd, 1st Block Koramangala, Koramangala, Bengaluru, Karnataka 560034',
+    phone: '078924 77228',
+    hours: '8:30 AM – 11:30 PM, daily',
+    rating: '4.6',
+    reviews: '562',
+    description: 'Our Koramangala space is a vibrant neighbourhood third place designed for lingering over coffee, enjoying a full meal, or meeting friends after work.',
+    googleMapsUrl: 'https://maps.google.com/?q=Story+Coffee+House+Koramangala',
+  },
+  {
+    id: 'indiranagar',
+    slug: 'indiranagar',
+    name: 'Indiranagar',
+    address: 'East West Building, 13th Street, near Indira Nagar, Indiranagar, Bengaluru, Karnataka 560008',
+    phone: '086605 56092',
+    hours: '8:30 AM – 11:30 PM, daily (Hours may vary)',
+    description: 'Tucked into the bustling heart of Indiranagar, this is your quiet corner for morning coffees and evening conversations.',
+    googleMapsUrl: 'https://maps.google.com/?q=Story+Coffee+House+Indiranagar',
+  },
+  {
+    id: 'kamanahalli',
+    slug: 'kamanahalli',
+    name: 'Kamanahalli',
+    address: '1st floor, Above ARKAY Sports Store, 3rd Block, 412, near 3rd A Main Road, behind Cafe Coffee Day, HRBR Layout 3rd Block, Kammanahalli, Bengaluru 560043',
+    phone: 'Phone details coming soon',
+    hours: '8:30 AM – 11:30 PM, daily (Hours may vary)',
+    description: 'A cozy neighbourhood retreat in Kamanahalli where the coffee is honest and the bookshelves are real.',
+    googleMapsUrl: 'https://maps.google.com/?q=Story+Coffee+House+Kamanahalli',
+  },
+  {
+    id: 'horamavu',
+    slug: 'horamavu',
+    name: 'Horamavu',
+    address: 'No. 1, Rammana Layout, Main Road, near Good Hope Residency, Prakruthi Township, Horamavu Agara, Horamavu, Bengaluru, Karnataka 560113',
+    phone: '083105 24540',
+    hours: '8:30 AM – 11:30 PM, daily (Hours may vary)',
+    description: 'Your local Horamavu dining destination and neighbourhood coffee house, perfect for weekend brunch or weekday focus.',
+    googleMapsUrl: 'https://maps.google.com/?q=Story+Coffee+House+Horamavu',
+  },
+  {
+    id: 'kothanur',
+    slug: 'kothanur',
+    name: 'Kothanur',
+    address: 'Location details coming soon',
+    phone: 'Phone details coming soon',
+    hours: 'Opening Soon',
+    description: 'A new story is brewing in Kothanur. The place between home and everywhere else is coming to your neighbourhood.',
+    isComingSoon: true,
+  }
+];
