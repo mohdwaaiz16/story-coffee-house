@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { categories, menuItems } from '../data/menu';
@@ -28,12 +29,21 @@ export default function Menu({ isSection = false }: { isSection?: boolean }) {
   const groupedItems = useMemo(() => {
     if (activeCategory !== 'all') return { [activeCategory]: filteredItems };
     
-    return filteredItems.reduce((acc, item) => {
+    const groups = filteredItems.reduce((acc, item) => {
       if (!acc[item.category]) acc[item.category] = [];
       acc[item.category].push(item);
       return acc;
     }, {} as Record<string, typeof menuItems>);
-  }, [activeCategory, filteredItems]);
+
+    if (isSection) {
+      const firstKey = Object.keys(groups)[0];
+      if (firstKey) {
+        return { [firstKey]: groups[firstKey].slice(0, 4) };
+      }
+    }
+    
+    return groups;
+  }, [activeCategory, filteredItems, isSection]);
 
   const getCategoryName = (id: string) => categories.find(c => c.id === id)?.name || id;
 
@@ -55,47 +65,49 @@ export default function Menu({ isSection = false }: { isSection?: boolean }) {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 border-b border-deep-brown/10 pb-6">
-          {/* Categories */}
-          <div className="flex overflow-x-auto w-full md:w-auto pb-2 md:pb-0 gap-8 hide-scrollbar">
-            <button
-              onClick={() => setActiveCategory('all')}
-              className={`whitespace-nowrap text-sm font-semibold tracking-wide transition-colors ${
-                activeCategory === 'all' ? 'text-terracotta border-b-2 border-terracotta pb-1' : 'text-espresso/60 hover:text-espresso'
-              }`}
-            >
-              All
-            </button>
-            {categories.map(cat => (
+        {!isSection && (
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 border-b border-deep-brown/10 pb-6">
+            {/* Categories */}
+            <div className="flex overflow-x-auto w-full md:w-auto pb-2 md:pb-0 gap-8 hide-scrollbar">
               <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => setActiveCategory('all')}
                 className={`whitespace-nowrap text-sm font-semibold tracking-wide transition-colors ${
-                  activeCategory === cat.id ? 'text-terracotta border-b-2 border-terracotta pb-1' : 'text-espresso/60 hover:text-espresso'
+                  activeCategory === 'all' ? 'text-terracotta border-b-2 border-terracotta pb-1' : 'text-espresso/60 hover:text-espresso'
                 }`}
               >
-                {cat.name}
+                All
               </button>
-            ))}
-          </div>
+              {categories.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`whitespace-nowrap text-sm font-semibold tracking-wide transition-colors ${
+                    activeCategory === cat.id ? 'text-terracotta border-b-2 border-terracotta pb-1' : 'text-espresso/60 hover:text-espresso'
+                  }`}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
 
-          {/* Type Filters */}
-          <div className="flex gap-2">
-            {(['All', 'Popular', 'Veg', 'Non-Veg'] as FilterType[]).map(filter => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-1.5 text-xs font-semibold tracking-wider rounded-sm transition-colors border ${
-                  activeFilter === filter 
-                    ? 'bg-espresso text-warm-cream border-espresso' 
-                    : 'border-deep-brown/20 text-espresso hover:border-espresso'
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
+            {/* Type Filters */}
+            <div className="flex gap-2">
+              {(['All', 'Popular', 'Veg', 'Non-Veg'] as FilterType[]).map(filter => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-4 py-1.5 text-xs font-semibold tracking-wider rounded-sm transition-colors border ${
+                    activeFilter === filter 
+                      ? 'bg-espresso text-warm-cream border-espresso' 
+                      : 'border-deep-brown/20 text-espresso hover:border-espresso'
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Menu Items Grid */}
         <div className="space-y-16">
@@ -150,6 +162,14 @@ export default function Menu({ isSection = false }: { isSection?: boolean }) {
             )}
           </AnimatePresence>
         </div>
+        
+        {isSection && (
+          <div className="mt-16 text-center">
+            <Link to="/menu" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="inline-block bg-espresso text-warm-cream px-8 py-3.5 rounded-sm font-medium tracking-wide hover:bg-terracotta transition-colors">
+              SHOW FULL MENU
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

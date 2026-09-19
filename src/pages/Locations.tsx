@@ -16,7 +16,7 @@ export default function Locations({ isSection = false }: { isSection?: boolean }
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-serif text-espresso mb-6">NEIGHBOURHOODS</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-espresso mb-6 break-words">NEIGHBOURHOODS</h1>
           <p className="text-lg text-deep-brown/80 max-w-2xl mx-auto">
             Every neighbourhood deserves a coffee house. Find your closest Story.
           </p>
